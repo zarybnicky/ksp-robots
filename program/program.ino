@@ -41,34 +41,17 @@ void loop() {
 
 void evade(int left, int center, int right) {
   if (center) {
-    if (turning > 0) {
-      turning = turning / 2;
-    } else {
-      direction = 0;
-    }
-  } else {
-    turning++; 
-  }
-  
-  int backspeed = speed - speed * 2 * (turning / 100.0);
-  backspeed = -speed / 2;
-  
-  if (turning == 0) {
     go(speed, speed);
-    return;
-  }
-
-  if (turning > 100) {
-    //TODO
-    go(0, 0);
-    return;
+    direction = 0;
+    return; 
   }
   
-  if (direction == 1 || right) {
-    go(speed, backspeed);
+  if (left || direction == 1) {
+    go(speed, -speed / 2);
     direction = 1;
-  } else {
-    go(backspeed, speed);
+  }
+  if (right || direction == -1) {
+    go(-speed / 2, speed);
     direction = -1;
   }
 }
